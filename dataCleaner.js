@@ -13,18 +13,18 @@ function processData(csv) {
     mapSLs = supplyLines.map((sl) => {
         let rows = sl.split("\n");
         filteredRows = rows.filter((row) => {
-            return '\r' !== row
+            return '\r' !== row;
         })
-        let name = filteredRows[0].slice(0, -9)
+        let name = filteredRows[0].slice(0, -9);
         if (name.includes("->")) {
-            name = name.split(" ->")[0]
+            name = name.split(" ->")[0];
         }
 
-        types = filteredRows[2].slice(0, -2).split(",")
-        names = filteredRows[3].slice(0, -2).split(",")
-        costs = filteredRows[4].slice(0, -2).split(",")
+        types = filteredRows[2].slice(0, -2).split(",");
+        names = filteredRows[3].slice(0, -2).split(",");
+        costs = filteredRows[4].slice(0, -2).split(",");
 
-        const award = new Array(types.length)
+        const award = new Array(types.length);
         return award.fill().map((_item, i) => {
             return {
                 "sLName": name,
