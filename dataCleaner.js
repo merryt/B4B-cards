@@ -15,14 +15,14 @@ function processData(csv) {
         filteredRows = rows.filter((row) => {
             return '\r' !== row
         })
-        let name = filteredRows[0].slice(0, filteredRows[0].length - 9)
+        let name = filteredRows[0].slice(0, -9)
         if (name.includes("->")) {
             name = name.split(" ->")[0]
         }
 
-        types = filteredRows[2].slice(0, filteredRows[2].length - 2).split(",")
-        names = filteredRows[3].slice(0, filteredRows[3].length - 2).split(",")
-        costs = filteredRows[4].slice(0, filteredRows[4].length - 2).split(",")
+        types = filteredRows[2].slice(0, -2).split(",")
+        names = filteredRows[3].slice(0, -2).split(",")
+        costs = filteredRows[4].slice(0, -2).split(",")
 
         const award = new Array(types.length)
         return award.fill().map((_item, i) => {
