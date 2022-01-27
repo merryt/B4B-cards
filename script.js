@@ -1,26 +1,26 @@
-
 function populateList(path, selector) {
     var select = document.getElementById(selector);
-    for (var i = 0; i < path.length; i++) {
-        var opt = path[i].name;
+    path.forEach(item => {
+        var opt = item.name;
         var el = document.createElement("option");
         el.textContent = opt;
-        el.value = path[i].id;
+        el.value = item.id;
         select.appendChild(el);
-    }
+
+    })
 }
 
 function checkPath() {
-    const { currentplace, idealdeck } = readQueryStrings()
+    const { currentplace, idealdeck } = readQueryStrings();
 
 
     const sortedDeck = ["a0", "b0", "c0"]
         .map((letter) => idealdeck.filter((card) => card.includes(letter.slice(0, 1))))
         .map((cards) => cards.reduce((acc, card) => {
             if (parseInt(acc.slice(1)) > parseInt(card.slice(1))) {
-                return acc
+                return acc;
             }
-            return card
+            return card;
         }, []))
     currentplace.forEach((item, index) => {
         currentPath = [path1, path2, path3][index];
@@ -37,7 +37,7 @@ function checkPath() {
 }
 
 document.addEventListener("input", function (event) {
-    writeQueryStrings()
+    writeQueryStrings();
     checkPath();
 });
 
@@ -45,9 +45,9 @@ document.addEventListener("input", function (event) {
 function readQueryStrings() {
     const urlSearchParams = new URLSearchParams(window.location.search);
     const params = Object.fromEntries(urlSearchParams.entries());
-    const currentplace = params.currentplace.split(',')
+    const currentplace = params.currentplace.split(',');
     const idealdeck = params.deck.split(',');
-    return { currentplace, idealdeck }
+    return { currentplace, idealdeck };
 }
 
 function writeQueryStrings() {
@@ -81,10 +81,10 @@ function init() {
     const deck = new Array(15).fill()
     fulldeck = [path1, path2, path3].flat().sort((a, b) => a.name.localeCompare(b.name));
     deck.forEach((_card, index) => {
-        var select = document.createElement("select")
-        var label = document.createElement("label")
-        label.innerText = "Goal Card " + (parseInt(index) + 1)
-        select.id = "goalCard" + index
+        var select = document.createElement("select");
+        var label = document.createElement("label");
+        label.innerText = "Goal Card " + (parseInt(index) + 1);
+        select.id = "goalCard" + index;
         for (var i = 0; i < fulldeck.length; i++) {
             var opt = fulldeck[i].name;
             var el = document.createElement("option");
@@ -92,20 +92,20 @@ function init() {
             el.value = fulldeck[i].id;
             select.appendChild(el);
         }
-        document.querySelector("#idealDeck").appendChild(label)
-        document.querySelector("#idealDeck").appendChild(select)
-        document.querySelector("#idealDeck").appendChild(document.createElement("br"))
+        document.querySelector("#idealDeck").appendChild(label);
+        document.querySelector("#idealDeck").appendChild(select);
+        document.querySelector("#idealDeck").appendChild(document.createElement("br"));
     })
 
 
-    const { currentplace, idealdeck } = readQueryStrings()
+    const { currentplace, idealdeck } = readQueryStrings();
     currentplace.forEach((item, index) => {
-        select = document.getElementById("currentP" + index).value = item
+        select = document.getElementById("currentP" + index).value = item;
     })
     idealdeck.forEach((item, index) => {
-        select = document.getElementById("goalCard" + index).value = item
+        select = document.getElementById("goalCard" + index).value = item;
     })
-    checkPath()
+    checkPath();
 }
 
-init()
+init();

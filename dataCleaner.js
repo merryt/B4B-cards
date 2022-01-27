@@ -1,10 +1,10 @@
-fs = require('fs')
-currentPathId = 3
+fs = require('fs');
+currentPathId = 3;
 
 fs.readFile(`./SupplyLines-Path${currentPathId}.csv`, 'utf8', function (err, data) {
     if (err) { return console.log(err) };
 
-    processData(data)
+    processData(data);
 })
 
 function processData(csv) {
@@ -33,19 +33,19 @@ function processData(csv) {
                 "cost": costs[i]
             }
         }).filter((item) => {
-            return item.type !== "-"
+            return item.type !== "-";
         })
     })
 
-    flattenedSL = mapSLs.flat()
+    flattenedSL = mapSLs.flat();
     finalfinalV3 = flattenedSL.map((item, index) => {
-        item.id = ["a", "b", "c"][currentPathId - 1] + index
-        return item
+        item.id = ["a", "b", "c"][currentPathId - 1] + index;
+        return item;
     })
 
     fs.writeFile(`./sl-path${currentPathId}.js`, `path${currentPathId} = ${JSON.stringify(finalfinalV3)}`, err => {
         if (err) {
-            console.error(err)
+            console.error(err);
             return
         }
     })
