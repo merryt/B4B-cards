@@ -1,7 +1,3 @@
-// todo
-//  - figure out farthst card
-//  - Calculat farthest card down each path
-
 
 function populateList(path, selector) {
     var select = document.getElementById(selector);
@@ -14,43 +10,35 @@ function populateList(path, selector) {
     }
 }
 
+function checkPath() {
+    const { currentplace, idealdeck } = readQueryStrings()
 
 
-
-
-
-
-function checkPath(id) {
-    return
-    currentPath = [path1, path2, path3][id - 1];
-    currentCardSelect = document.getElementById("currentP" + (id - 1));
-    currentCardloc =
-        parseInt(currentCardSelect.options[currentCardSelect.selectedIndex].value);
-    goalCardloc = -1;
-    console.log(currentCardloc)
-    if (currentCardloc < goalCardloc) {
-        cardsToGo = currentPath.slice(currentCardloc, parseInt(goalCardloc) + 1);
-        pointToGo = cardsToGo.reduce((acc, item) => {
-            return acc + parseInt(item.cost)
-        }, 0)
-        document.querySelector("#pointsToGo" + id).innerText = pointToGo;
-    } else {
-        document.querySelector("#pointsToGo" + id).innerText = "already got it bud";
-    }
-
+    const sortedDeck = ["a0", "b0", "c0"]
+        .map((letter) => idealdeck.filter((card) => card.includes(letter.slice(0, 1))))
+        .map((cards) => cards.reduce((acc, card) => {
+            if (parseInt(acc.slice(1)) > parseInt(card.slice(1))) {
+                return acc
+            }
+            return card
+        }, []))
+    currentplace.forEach((item, index) => {
+        currentPath = [path1, path2, path3][index];
+        if (item.slice(1) < sortedDeck[index].slice(1)) {
+            cardsToGo = currentPath.slice(item.slice(1), sortedDeck[index].slice(1));
+            pointToGo = cardsToGo.reduce((acc, item) => {
+                return acc + parseInt(item.cost)
+            }, 0)
+            document.querySelector("#pointsToGo" + index).innerText = pointToGo;
+        } else {
+            document.querySelector("#pointsToGo" + index).innerText = "already got it bud";
+        }
+    })
 }
 
 document.addEventListener("input", function (event) {
-    targetId = event.target.id;
-    pathId = targetId.slice(targetId.length - 1, targetId.length);
-    console.log(targetId.slice(0, 4))
-
     writeQueryStrings()
-
-
-    if (targetId.slice(0, 4) !== "goal") {
-        checkPath(pathId);
-    }
+    checkPath();
 });
 
 
