@@ -105,6 +105,7 @@ function init() {
     idealdeck.forEach((item, index) => {
         select = document.getElementById("goalCard" + index).value = item
     })
+    checkPath()
 }
 
 init()
