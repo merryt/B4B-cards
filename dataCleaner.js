@@ -37,12 +37,6 @@ function processData(csv) {
         })
     })
 
-    // console.log(supplyLines[supplyLines.length - 1])
-    // console.log(mapSLs[mapSLs.length - 1]);
-    // console.log(mapSLs);
-
-
-
     flattenedSL = mapSLs.flat()
     finalfinalV3 = flattenedSL.map((item, index) => {
         item.id = ["a", "b", "c"][currentPathId - 1] + index
@@ -54,6 +48,5 @@ function processData(csv) {
             console.error(err)
             return
         }
-        //file written successfully
     })
 }
