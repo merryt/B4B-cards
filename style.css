@@ -1,0 +1,31 @@
+html{
+    background-color: #131313;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+body{
+    margin:0;
+}
+.nav{
+    background: rgba(255,255,255,0.1);
+}
+.nav >a {
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+@media screen and (min-width: 600px) {
+    body > div{
+        padding: 10px 20%;
+    }
+}
+
+label {
+    min-width: 300px;
+    height: 25px;
+    display: inline-block;
+}
+hr{
+    border-color: #333333;
+}
